@@ -1,3 +1,4 @@
+![example workflow]([https://github.com/lanazzk/yamdb_final/tree/master/.github/workflows/yamdb_workflow.yml/badge.svg)
 # API к сервису YaMDb
 
 ---
