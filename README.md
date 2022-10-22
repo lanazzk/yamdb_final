@@ -1,4 +1,4 @@
-![example branch parameter](https://github.com/lanazzk/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+![build status](https://github.com/lanazzk/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 # API к сервису YaMDb
 
 ---
