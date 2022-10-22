@@ -1,4 +1,6 @@
-![example workflow]([https://github.com/lanazzk/yamdb_final/tree/master/.github/workflows/yamdb_workflow.yml/badge.svg)
+![example branch parameter](https://github.com/lanazk/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?branch=feature-1)
+![example branch parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?branch=feature-1)
+![example event parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=push)
 # API к сервису YaMDb
 
 ---
