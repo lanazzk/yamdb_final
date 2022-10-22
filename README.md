@@ -1,3 +1,5 @@
+![example branch parameter](https://github.com/lanazk/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+
 # API к сервису YaMDb
 
 ---
