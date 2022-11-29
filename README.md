@@ -91,7 +91,6 @@ POST auth/token/
   "token": "Token swdsgdjsdhh345dchj"
 }
 ```
-#### API:
 Creating new category.
 ```
 Permissions class: Administrator. Slug required be unique.
