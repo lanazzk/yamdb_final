@@ -3,24 +3,17 @@
 
 ---
 
-### Описание сервиса
+### Service description
 
+This service **YaMDb** collects users reviews to different works. The works are divided into categories: "Books", "Films", "Music" and genres "Fairy tale", "Rock", "Arthouse". The lists of categories and genres can be expanded by the administrator. 
 
-Сервис **YaMDb** собирает **отзывы (Review)** пользователей на **произведения (Titles)**. Произведения делятся на категории: «Книги», «Фильмы», «Музыка». Список **категорий (Category)** может быть расширен администратором (например, можно добавить категорию «Изобразительное искусство» или «Ювелирка»).
-Сами произведения в YaMDb не хранятся, здесь нельзя посмотреть фильм или послушать музыку.
+Additionaly configured CI/CD(Continuous Integration and Continuous Deployment) for this project:
+  - automatic start of tests(pep8, pytest),
+  - building or updating docker image in container on Docker Hub; 
+  - automatic deploy to the production server;
+  - sending a notification to Telegram that the deployment process has completed successfully
 
-В каждой категории есть произведения: книги, фильмы или музыка. Например, в категории «Книги» могут быть произведения «Винни-Пух и все-все-все» и «Марсианские хроники», а в категории «Музыка» — песня «Давеча» группы «Насекомые» и вторая сюита Баха.
-Произведению может быть присвоен жанр (Genre) из списка предустановленных (например, «Сказка», «Рок» или «Артхаус»). Новые жанры может создавать только администратор.
-
-Благодарные или возмущённые пользователи оставляют к произведениям текстовые отзывы (Review) и ставят произведению оценку в диапазоне от одного до десяти (целое число); из пользовательских оценок формируется усреднённая оценка произведения — рейтинг (целое число). На одно произведение пользователь может оставить только один отзыв.
-
-### Документация к сервису находится по адресу (после установки и запуска):
-`http://127.0.0.1:8000/redoc/`
-
-### Режим администрирования находится по адресу:
-`http://127.0.0.1:8000/admin/`
-
-### Технологии
+### Technologies
 - Python 3.8
 - Django 3.2
 - Django Rest Framework
@@ -30,21 +23,22 @@
 - Gunicorn
 - Docker
 
-### Запуск проекта в Docker
+### How to launch a project:
 
-Склонировать проект можно с:
+Clone the repository and go to it on the command line:
 ```
 git@github.com:lanazzk/infra_sp2.git
 ```
-Установите и активируйте вирутальное окружение.
-
-Зайдите в папку /infra
-
-Разверните проект командой:
+Create and activate a virtual environment:
 ```
-docker-compose up
+python3 -m venv venv
+source venv/Scripts/activate
 ```
-Шаблон наполнения env-файла:
+Then go to the yamdb_final/infra folder and create there a .env file with environment variables needed for the application to work.
+```
+cd /infra
+```
+Env-file filling template:
 ```
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
@@ -52,9 +46,14 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres123
 DB_HOST=db
 DB_PORT=5432
+```
+
+The next step is to run docker-compose:
+```
+docker-compose up
 
 ```
-Выполните по очереди команды (Миграции, создание суперюзераб собрать статику и загрузить данные из БД):
+Run next commands:
 
 ```
 docker-compose exec web python manage.py migrate
@@ -62,10 +61,14 @@ docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py collectstatic --no-input
 docker-compose exec web python manage.py loaddata fixtures.json
 ```
+After that the project should be available at http://localhost/.
 
-### Примеры запросов/ответов:
-#### Регистрация нового пользователя:
-Получить код подтверждения на переданный email.Поля email и username должны быть уникальными.
+### Examples of requests:
+The full list of possible requests and responses can be seen after installing and running the API on the local server
+
+`http://127.0.0.1:8000/redoc/`
+
+#### New user registration :
 ```
 POST /auth/signup/
 {
@@ -73,26 +76,25 @@ POST /auth/signup/
   "username": "string"
 }
 ```
-#### Запрос на получение токена авторизации:
-Получение JWT-токена в обмен на username и confirmation code.
+#### Get authorization JWT-tocken:
 ```
 POST auth/token/
 {
-  "username": "Ваш логин",
-  "confirmation_code": "Код подтверждения"
+  "username": "login",
+  "confirmation_code": "confirmation code"
 }
 ```
-#### Ответ:
+#### Response:
 
 ```json
 {
-  "token": "Токен для авторизации на сервисе"
+  "token": "Token swdsgdjsdhh345dchj"
 }
 ```
-#### Работа с API для пользователей:
-Создать категорию.
+#### API:
+Creating new category.
 ```
-Права доступа: Администратор. Поле slug каждой категории должно быть уникальным.
+Permissions class: Administrator. Slug required be unique.
 POST /categories/
 json
 {
@@ -100,14 +102,14 @@ json
   "slug": "string"
 }
 ```
-Удалить категорию.
+Removing category
 ```
-Права доступа: Администратор.
+Permissions class: Administrator.
 DELETE /categories/{slug}
 ```
-Получение списка всех произведений.
+Get lists of titles:
 ```
-Права доступа: Доступно без токена
+Permissions class: Available without token.
 GET /titles/
 [
   {
@@ -132,15 +134,15 @@ GET /titles/
           "slug": "string"
         }
 ```
-Добавление нового отзыва
+Adding new review
 ```
-Права доступа: Аутентифицированные пользователи.
+Permissions class: Authenticated users.
 POST /titles/{title_id}/reviews/
 {
   "text": "string",
   "score": 1
 }
-Ответ
+Response
 {
   "id": 0,
   "text": "string",
@@ -149,5 +151,3 @@ POST /titles/{title_id}/reviews/
   "pub_date": "2019-08-24T14:15:22Z"
 }
 ```
-Полный список можно посмотреть в документации.
-`http://127.0.0.1:8000/redoc/`
