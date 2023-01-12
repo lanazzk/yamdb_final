@@ -5,12 +5,11 @@
 
 ### Service description
 
-This service **YaMDb** collects users reviews to different works. The works are divided into categories: "Books", "Films", "Music" and genres "Fairy tale", "Rock", "Arthouse". The lists of categories and genres can be expanded by the administrator. 
-
-Additionaly configured CI/CD(Continuous Integration and Continuous Deployment) for this project:
+This service YaMDb collects users' reviews of different works. The works are divided into categories: "Books", "Films", "Music" and genres "Fairy tale", "Rock", and "Arthouse". The lists of categories and genres can be expanded by the administrator.
+Additionally configured CI/CD(Continuous Integration and Continuous Deployment) for this project:
   - automatic start of tests(pep8, pytest),
-  - building or updating docker image in container on Docker Hub; 
-  - automatic deploy to the production server;
+  - building or updating a docker image in the container on Docker Hub; 
+  - automatic deployment to the production server;
   - sending a notification to Telegram that the deployment process has completed successfully
 
 ### Technologies
