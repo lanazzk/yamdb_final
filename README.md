@@ -1,5 +1,5 @@
 ![build status](https://github.com/lanazzk/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
-# API to YaMDb service 
+# API to reviews YaMDb service 
 
 ---
 
